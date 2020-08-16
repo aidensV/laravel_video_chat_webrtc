@@ -1976,6 +1976,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1992,6 +1993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     startVideoChat: function startVideoChat(userId) {
+      console.log(userId);
       this.getPeer(userId, true);
     },
     getPeer: function getPeer(userId, initiator) {
@@ -2029,13 +2031,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var videoHere, pusher;
+        var stream, videoHere, pusher;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 // To show pusher errors
-                // Pusher.logToConsole = true;      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                pusher_js__WEBPACK_IMPORTED_MODULE_1___default.a.logToConsole = true;
+                _context.next = 3;
+                return navigator.mediaDevices.getUserMedia({
+                  video: true,
+                  audio: true
+                });
+
+              case 3:
+                stream = _context.sent;
+                console.log("sd");
                 videoHere = _this2.$refs['video-here'];
                 videoHere.srcObject = stream;
                 _this2.stream = stream;
@@ -2048,7 +2059,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   peer.signal(signal.data);
                 });
 
-              case 6:
+              case 11:
               case "end":
                 return _context.stop();
             }

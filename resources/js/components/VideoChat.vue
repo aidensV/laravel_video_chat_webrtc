@@ -9,7 +9,9 @@
       </div>
     </div>
   </div>
-</template><script>import Pusher from 'pusher-js';
+</template>
+<script>
+import Pusher from 'pusher-js';
 import Peer from 'simple-peer';export default {
   props: ['user', 'others', 'pusherKey', 'pusherCluster'],
   data() {
@@ -24,9 +26,13 @@ import Peer from 'simple-peer';export default {
   },
   methods: {
     startVideoChat(userId) {
+      console.log(userId);
       this.getPeer(userId, true);
+
     },
-    getPeer(userId, initiator) {      if(this.peers[userId] === undefined) {
+    getPeer(userId, initiator) {      
+      if(this.peers[userId] === undefined) {
+      
         let peer = new Peer({
           initiator,
           stream: this.stream,
@@ -51,9 +57,13 @@ import Peer from 'simple-peer';export default {
         });        this.peers[userId] = peer;
       } 
       return this.peers[userId];
-    },    async setupVideoChat() {
+    },   
+     async setupVideoChat() {
       // To show pusher errors
-      // Pusher.logToConsole = true;      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      console.log("sd");
+      Pusher.logToConsole = true;     
+      // const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      
       const videoHere = this.$refs['video-here'];
       videoHere.srcObject = stream;
       this.stream = stream;      const pusher = this.getPusherInstance();
@@ -63,7 +73,8 @@ import Peer from 'simple-peer';export default {
         const peer = this.getPeer(signal.userId, false);
         peer.signal(signal.data);
       });
-    },    getPusherInstance() {
+    },    
+    getPusherInstance() {
       return new Pusher(this.pusherKey, {
         authEndpoint: '/auth/video_chat',
         cluster: this.pusherCluster,
